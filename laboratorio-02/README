@@ -1,1 +1,24 @@
+# Laboratorio 02 - Estructuras de Control y Colecciones
 
+## Descripción
+En este laboratorio trabajé el uso de condicionales, ciclos y colecciones en Python mediante ejercicios prácticos. También desarrollé una primera versión interactiva de un gestor de inventario en consola.
+
+## Objetivos
+- Utilizar estructuras condicionales (`if`, `elif`, `else`) para tomar decisiones.
+- Repetir instrucciones usando ciclos `for` y `while`.
+- Manipular datos con listas, diccionarios, tuplas y conjuntos.
+- Validar las entradas del usuario para evitar errores en el sistema.
+
+## Archivos y actividades
+- `gestor_inventario.py`: programa principal que permite registrar, buscar, actualizar, eliminar y ver reportes de productos guardados en memoria.
+- Otros archivos `.py`: contienen los ejercicios prácticos de la guía sobre listas, diccionarios, ciclos y comprensiones.
+
+## Requisitos
+- Python 3.
+- Visual Studio Code o cualquier editor de código.
+
+## Cómo ejecutar los programas
+Abre una terminal en esta carpeta y ejecuta el archivo principal:
+
+```bash
+python gestor_inventario.py
