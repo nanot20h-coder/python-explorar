@@ -194,3 +194,87 @@ Los cambios se registran mediante commits descriptivos en GitHub para documentar
 
 Estado del proyecto
 El repositorio se actualizará progresivamente durante los cuatro laboratorios. Las actividades se marcarán como completadas una vez que hayan sido desarrolladas y verificadas.
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+# Explorador de Python - Laboratorios
+
+## Descripción
+
+Este repositorio contiene las actividades y proyectos que he desarrollado durante mi aprendizaje de Python en el programa Tecnólogo en Análisis y Desarrollo de Software (ADSO) del SENA.
+
+A través de los laboratorios he practicado diferentes conceptos de programación, comenzando por los fundamentos del lenguaje y avanzando hacia la programación orientada a objetos, el manejo de archivos y la generación de reportes.
+
+Cada laboratorio me ha permitido aprender nuevos conceptos y aplicarlos en pequeños proyectos.
+
+## Contenido del repositorio
+
+### Laboratorio 01 - Fundamentos de Python
+
+En este laboratorio trabajé con los conceptos básicos de Python, como variables, tipos de datos, operadores, conversiones y entradas de información.
+
+**Proyecto:** Cotizador de compra.
+
+### Laboratorio 02 - Condiciones, ciclos y colecciones
+
+En este laboratorio practiqué el uso de condiciones, ciclos y colecciones como listas, tuplas, conjuntos y diccionarios.
+
+También desarrollé un gestor de inventario con opciones para registrar, consultar, buscar, actualizar, eliminar y filtrar productos.
+
+**Proyecto:** Gestor de inventario básico.
+
+### Laboratorio 03 - Funciones, módulos y programación orientada a objetos
+
+En este laboratorio organicé el código utilizando funciones, módulos, clases y objetos. También trabajé con validaciones y con la separación de responsabilidades entre los diferentes archivos del proyecto.
+
+**Proyecto:** Gestor de inventario organizado mediante clases y módulos.
+
+### Laboratorio 04 - Archivos, persistencia y reportes
+
+En este laboratorio amplié el gestor de inventario para guardar y recuperar los productos mediante archivos JSON. También agregué el manejo de errores y la exportación de reportes en formato CSV.
+
+**Proyecto:** Gestor de inventario persistente de Novexa.
+
+## Estructura del repositorio
+
+```text
+Explorador de Python - Laboratorios/
+├── README.md
+├── laboratorio-01/
+│   ├── README.md
+│   └── cotizador_compra.py
+├── laboratorio-02/
+│   ├── README.md
+│   └── gestor_inventario.py
+├── laboratorio-03/
+│   ├── README.md
+│   └── gestor_inventario/
+└── laboratorio-04/
+    ├── README.md
+    └── gestor_inventario/
+```
+
+La estructura muestra la organización general del repositorio. Dentro de cada laboratorio se encuentran los archivos y carpetas correspondientes a sus actividades.
+
+## Tecnologías y herramientas
+
+- **Python:** lenguaje utilizado para desarrollar los ejercicios y proyectos.
+- **Visual Studio Code:** editor utilizado para escribir y ejecutar el código.
+- **Git:** herramienta utilizada para registrar los cambios realizados.
+- **GitHub:** plataforma donde se almacena el repositorio y se puede consultar la evolución de los proyectos.
+- **JSON y CSV:** formatos utilizados en el Laboratorio 04 para guardar y exportar información.
+
+## Aprendizajes generales
+
+Durante el desarrollo de estos laboratorios he aprendido a trabajar con diferentes estructuras de Python, organizar el código en funciones y clases, validar información y utilizar archivos para guardar datos.
+
+También he practicado la identificación y corrección de errores y el uso de Git y GitHub para llevar un seguimiento de los cambios.
+
+Cada laboratorio representa un avance en mi proceso de aprendizaje y me ha permitido construir proyectos cada vez más completos.
+
+
+
+**Repositorio:** https://github.com/nanot20h-coder/python-explorar.git
+
