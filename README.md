@@ -123,6 +123,72 @@ DOS
 py gestor_inventario.py
 Seleccionar la opción deseada del menú interactivo para gestionar el inventario.
 
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Laboratorio 03: Funciones, Módulos y Programación Orientada a Objetos
+
+El tercer laboratorio trabaja con funciones, módulos, clases, objetos, encapsulamiento, propiedades, validaciones y colaboración entre objetos.
+
+Actividad integradora: Gestor de inventario de Novexa
+
+El proyecto integrador se encuentra en la carpeta laboratorio-03/gestor_inventario/ y está orientado a la administración de recursos digitales relacionados con el diseño y la identidad visual de una empresa.
+
+El proyecto utiliza programación orientada a objetos para representar los productos y administrar el inventario, separando la lógica de negocio de la interacción con el usuario.
+
+Las funcionalidades del sistema incluyen:
+
+Registrar recursos digitales.
+
+Consultar y listar los recursos registrados.
+
+Buscar recursos por su nombre.
+
+Actualizar la información de un recurso.
+
+Eliminar recursos del inventario.
+
+Generar informes generales del inventario.
+
+Validar los datos ingresados por el usuario.
+
+Los recursos pueden representar logotipos, plantillas, paletas de colores, manuales de marca y otros elementos digitales.
+
+Estructura del proyecto
+
+Dentro de laboratorio-03/gestor_inventario/ se encuentran los siguientes archivos:
+
+producto.py: define la clase Producto y las validaciones relacionadas con los datos de cada recurso.
+
+inventario.py: administra los productos y contiene la lógica de negocio del inventario.
+
+main.py: contiene la interacción con el usuario y el menú principal de la aplicación.
+
+README.md: contiene información específica sobre el proyecto integrador.
+
+Instrucciones de ejecución
+
+Importante: para ejecutar el proyecto, debes ingresar a la carpeta gestor_inventario, ya que allí se encuentra el archivo main.py.
+
+Abrir la carpeta principal del repositorio en Visual Studio Code.
+
+Abrir una terminal.
+
+Ingresar a la carpeta del proyecto:
+
+cd laboratorio-03/gestor_inventario
+
+Ejecutar la aplicación:
+
+python main.py
+
+En Windows también se puede utilizar:
+
+py main.py
+
+Utilizar el menú interactivo para seleccionar la operación que se desea realizar.
+
+Nota: los datos se mantienen en memoria mientras la aplicación está en ejecución. Al cerrar el programa, los datos registrados no se conservan, salvo que se implemente un mecanismo de almacenamiento persistente.
+
 Control de versiones
 Los cambios se registran mediante commits descriptivos en GitHub para documentar el desarrollo de los ejercicios, las correcciones y las mejoras realizadas.
 
