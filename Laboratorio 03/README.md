@@ -8,7 +8,7 @@ plantillas, paletas de color, manuales de marca y otros activos creativos.
 - No requiere instalar paquetes externos.
 
 ## Ejecución
-Desde esta carpeta, ejecuta:
+Desde esta carpeta, ejecuta: gestor_inventario
 
 ```bash
 python main.py
