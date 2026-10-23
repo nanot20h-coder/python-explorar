@@ -1,1 +1,110 @@
+# Laboratorio 04 - Gestor de inventario persistente
+
+## Descripción
+
+En este laboratorio continué trabajando en el gestor de inventario de **Novexa**, un proyecto desarrollado en Python para administrar recursos digitales, como logotipos, plantillas, paletas de colores y otros elementos relacionados con el diseño de una empresa.
+
+En esta versión mejoré el programa para que la información de los productos no se pierda al cerrar la aplicación. También agregué el manejo de errores y la opción de generar reportes en archivos CSV.
+
+## Objetivo
+
+Aplicar los conocimientos aprendidos en los laboratorios anteriores para mejorar el gestor de inventario, guardar la información de forma permanente y organizar mejor el código.
+
+## Funcionalidades
+
+El programa permite:
+
+- Registrar nuevos recursos digitales.
+- Consultar todos los productos registrados.
+- Buscar productos por su nombre.
+- Actualizar la información de los productos.
+- Eliminar productos del inventario.
+- Validar los datos ingresados.
+- Evitar productos con nombres repetidos.
+- Guardar la información en un archivo JSON.
+- Recuperar los productos al iniciar nuevamente el programa.
+- Mostrar un resumen del inventario.
+- Consultar el valor total de los productos y el valor por categoría.
+- Exportar los productos a un archivo CSV.
+- Manejar errores que puedan presentarse al leer o guardar archivos.
+
+## Estructura del proyecto
+
+```text
+laboratorio-04/
+├── README.md
+└── gestor_inventario/
+    ├── producto.py
+    ├── inventario.py
+    ├── almacenamiento.py
+    ├── reportes.py
+    ├── main.py
+    ├── datos/
+    │   └── productos.json
+    └── reportes/
+        └── inventario.csv
+```
+
+**Nota:** Los archivos `productos.json` e `inventario.csv` se crean al utilizar las funciones correspondientes del programa. Por eso, las carpetas o archivos de datos pueden no aparecer hasta que se ejecute la aplicación.
+
+## ¿Cómo ejecutar el programa?
+
+### 1. Abrir la carpeta del proyecto
+
+Abre la terminal de Visual Studio Code y ubícate en la carpeta `gestor_inventario`.
+
+### 2. Ejecutar el programa
+
+Escribe el siguiente comando:
+
+```bash
+python main.py
+```
+
+Si en tu equipo el comando `python` no funciona, puedes intentar con:
+
+```bash
+py main.py
+```
+
+### 3. Utilizar el menú
+
+Cuando se ejecute el programa, aparecerán las siguientes opciones:
+
+1. Consultar todos los recursos.
+2. Registrar recurso.
+3. Buscar recurso.
+4. Actualizar recurso.
+5. Eliminar recurso.
+6. Mostrar informe del inventario.
+7. Exportar inventario a CSV.
+0. Guardar y salir.
+
+Selecciona el número de la opción que quieras utilizar y sigue las instrucciones que aparecen en pantalla.
+
+## Archivos principales
+
+| Archivo | Función |
+|---|---|
+| `producto.py` | Contiene la clase que representa cada recurso y valida sus datos. |
+| `inventario.py` | Administra los productos y sus operaciones. |
+| `almacenamiento.py` | Guarda y recupera los productos utilizando JSON. |
+| `reportes.py` | Muestra el resumen y exporta la información a CSV. |
+| `main.py` | Contiene el menú principal del programa. |
+
+## Almacenamiento de la información
+
+Los productos se guardan en `datos/productos.json`. Esto permite recuperar la información cuando se ejecuta nuevamente el programa.
+
+El reporte se genera en `reportes/inventario.csv`, donde se pueden consultar los datos de los productos y el valor total de sus existencias.
+
+## Aprendizajes
+
+Con este laboratorio practiqué el uso de archivos JSON y CSV, las validaciones, el manejo de errores y la organización del código mediante módulos y clases.
+
+También comprendí la importancia de guardar la información para que los datos no dependan únicamente de que el programa permanezca abierto.
+
+
+
+**Proyecto:** Novexa - Gestor de inventario persistente
 
