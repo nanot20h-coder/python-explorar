@@ -1,0 +1,5 @@
+print("primer programa ")
+print("nombre: carol")
+print("programa: ADSO")
+print("Trimestre: 6")
+print("Entorno python listo")
