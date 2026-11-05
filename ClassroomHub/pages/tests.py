@@ -1,3 +1,4 @@
+
 from django.test import TestCase
 from django.urls import reverse
 
@@ -10,7 +11,7 @@ class PagesTests(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(
             response,
-            "Explore learning resources and project ideas."
+            "ClassroomHub es un portal educativo"
         )
 
     def test_resources_page(self):
