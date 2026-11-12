@@ -9,18 +9,21 @@ ClassroomHub es una aplicación web desarrollada con Django como parte de los la
 - Página principal con un mensaje de bienvenida.
 - Catálogo público de recursos educativos.
 - Organización de recursos mediante categorías.
-- Visualización de la descripción y disponibilidad de cada recurso.
-- Panel de administración de Django para gestionar categorías y recursos.
+- Visualización del título, descripción, categoría y disponibilidad de cada recurso.
+- Administración de categorías y recursos mediante Django Admin.
 - Persistencia de datos mediante MySQL.
 - Operaciones CRUD utilizando el ORM de Django.
+- Consultas mediante `all()`, `filter()`, `get()` y `select_related()`.
+- Acceso a recursos relacionados mediante `related_name`.
+- Protección de categorías con recursos asociados mediante `on_delete=models.PROTECT`.
 - Navegación entre páginas y respuesta 404 para rutas inexistentes.
-- Pruebas automatizadas para páginas y modelos.
+- Pruebas automatizadas para páginas, modelos y relaciones.
 
 ## Tecnologías utilizadas
 
 - Python 3.14.8
 - Django 6.1.3
-- MySQL
+- MySQL 26.7
 - mysqlclient 2.3.1
 - python-dotenv 1.2.4
 - HTML
@@ -35,7 +38,7 @@ ClassroomHub es una aplicación web desarrollada con Django como parte de los la
 
 ### 1. Clonar o descargar el proyecto
 
-Ubicarse en la carpeta del proyecto ClassroomHub.
+Clonar el repositorio o descargar el proyecto y ubicarse en la carpeta `ClassroomHub`.
 
 ### 2. Crear y activar el entorno virtual
 
@@ -97,7 +100,7 @@ DB_PORT=3306
 
 Reemplazar `tu_contraseña_segura` por la contraseña configurada para el usuario de MySQL.
 
-**Importante:** el archivo `.env` contiene información privada y no debe subirse al repositorio. Se utiliza `.env.example` como plantilla.
+**Importante:** El archivo `.env` contiene información privada y no debe subirse al repositorio. Se utiliza `.env.example` como plantilla de configuración.
 
 ### 6. Ejecutar las migraciones
 
@@ -105,6 +108,11 @@ Reemplazar `tu_contraseña_segura` por la contraseña configurada para el usuari
 python manage.py makemigrations
 python manage.py migrate
 ```
+
+Las migraciones principales del proyecto son:
+
+- `0001_initial`: creación de los modelos Category y Resource.
+- `0002_resource_resource_type`: incorporación del campo `resource_type` al modelo Resource, conservando los registros existentes mediante un valor predeterminado.
 
 ### 7. Crear un usuario administrador
 
@@ -147,7 +155,7 @@ http://127.0.0.1:8000/
 
 Representa las categorías de los recursos educativos.
 
-- `name`: nombre de la categoría.
+- `name`: nombre de la categoría, único.
 - `description`: descripción de la categoría.
 
 ### Resource
@@ -155,52 +163,12 @@ Representa las categorías de los recursos educativos.
 Representa los recursos educativos disponibles.
 
 - `title`: título del recurso.
+- `resource_type`: tipo de recurso, con valor predeterminado `General`.
 - `description`: descripción del recurso.
 - `available`: indica si está disponible.
-- `category`: relación con el modelo Category.
-- `created_at`: fecha de creación.
+- `category`: relación con el modelo Category mediante una clave foránea.
+- `created_at`: fecha de creación del recurso.
 
-## Operaciones CRUD con el ORM
+### Relación entre modelos
 
-La aplicación permite trabajar con los registros mediante el ORM de Django:
-
-- **Create:** crear categorías y recursos.
-- **Read:** consultar categorías y recursos.
-- **Update:** actualizar información de los registros.
-- **Delete:** eliminar registros.
-
-## Ejecutar las pruebas
-
-Para ejecutar las pruebas automatizadas:
-
-```bash
-python manage.py test pages -v 2
-```
-
-Las pruebas verifican el funcionamiento de las páginas, el catálogo de recursos, los modelos, la representación de los objetos y la disponibilidad predeterminada de los recursos.
-
-## Estructura del proyecto
-
-```text
-ClassroomHub/
-├── config/
-├── pages/
-│   ├── migrations/
-│   ├── templates/
-│   │   └── pages/
-│   ├── admin.py
-│   ├── models.py
-│   ├── tests.py
-│   ├── urls.py
-│   └── views.py
-├── .env
-├── .env.example
-├── .gitignore
-├── manage.py
-├── README.md
-└── requirements.txt
-```
-
-## Autoría
-
-Proyecto desarrollado como práctica de aprendizaje de Python, Django y persistencia de datos con MySQL.
+La relación entre Category y Resource es de uno a muchos: una categoría puede tener varios recursos y

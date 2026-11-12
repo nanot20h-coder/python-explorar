@@ -11,6 +11,7 @@ class Category(models.Model):
 
 class Resource(models.Model):
     title = models.CharField(max_length=150)
+    resource_type = models.CharField(max_length=50, default="General")
     description = models.TextField(blank=True)
     available = models.BooleanField(default=True)
     category = models.ForeignKey(

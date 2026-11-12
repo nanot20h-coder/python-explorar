@@ -1,6 +1,7 @@
 
 from django.test import TestCase
 from django.urls import reverse
+from django.db.models.deletion import ProtectedError
 from .models import Category, Resource
 
 
@@ -72,7 +73,7 @@ class PagesTests(TestCase):
 
         self.assertContains(response, "No resources are available.")
 
-        
+
 class ModelsTests(TestCase):
 
     def setUp(self):
@@ -110,3 +111,17 @@ class ModelsTests(TestCase):
         )
 
         self.assertTrue(resource.available)
+
+    def test_category_cannot_be_deleted_with_resources(self):
+        Resource.objects.create(
+            title="Recurso protegido",
+            description="Prueba de protección",
+            category=self.category
+        )
+
+        with self.assertRaises(ProtectedError):
+            self.category.delete()
+
+        self.assertTrue(
+            Category.objects.filter(pk=self.category.pk).exists()
+        )
