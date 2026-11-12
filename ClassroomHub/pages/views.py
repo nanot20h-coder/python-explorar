@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Resource
 
 
 def home(request):
@@ -9,24 +10,10 @@ def home(request):
 
 
 def resources(request):
+    resources = Resource.objects.select_related("category").all()
+
     context = {
-        "resources": [
-            {
-                "title": "Python basics",
-                "category": "Programming",
-                "available": True,
-            },
-            {
-                "title": "Git and GitHub",
-                "category": "Collaboration",
-                "available": True,
-            },
-            {
-                "title": "Django models",
-                "category": "Web development",
-                "available": False,
-            },
-        ],
+        "resources": resources,
     }
     return render(request, "pages/resources.html", context)
 
