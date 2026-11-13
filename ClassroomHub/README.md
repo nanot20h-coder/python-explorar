@@ -172,3 +172,42 @@ Representa los recursos educativos disponibles.
 ### Relación entre modelos
 
 La relación entre Category y Resource es de uno a muchos: una categoría puede tener varios recursos y
+
+
+## Authentication and permissions
+
+ClassroomHub uses Django authentication to manage user registration, login and logout.
+
+### Available routes
+- `/accounts/signup/`: Create an account.
+- `/accounts/login/`: Log in.
+- `/accounts/logout/`: Log out.
+- `/dashboard/`: Private dashboard.
+- `/resources/`: Public resource catalog.
+- `/resources/review/`: Authorized resource review.
+
+### Groups and permissions
+The project includes the `Catalog reviewers` group with the `pages.view_resource` permission.
+
+Users in this group can access the review page without Django Admin privileges.
+
+### Session management
+The dashboard displays the authenticated user's username and counts visits during the current session.
+
+### Automated tests
+Run the following commands:
+
+```bash
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python manage.py test pages
+```
+
+The project includes 30 automated tests covering pages, models, authentication, sessions and permissions.
+
+### Security
+- Django manages password hashing.
+- Registration creates regular users.
+- Logout uses POST and CSRF protection.
+- Permissions are verified on the server.
+- Database credentials remain in `.env`.
