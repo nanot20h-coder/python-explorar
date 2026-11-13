@@ -1,0 +1,20 @@
+
+{% extends "pages/base.html" %}
+
+{% block title %}Resource details | ClassroomHub{% endblock %}
+
+{% block content %}
+    <h2>{{ resource.title }}</h2>
+
+    <p><strong>Type:</strong> {{ resource.resource_type }}</p>
+    <p><strong>Description:</strong> {{ resource.description }}</p>
+    <p><strong>Category:</strong> {{ resource.category.name }}</p>
+
+    {% if resource.available %}
+        <p>Status: Available</p>
+    {% else %}
+        <p>Status: Not available</p>
+    {% endif %}
+
+    <a href="{% url 'pages:resources' %}">Back to resources</a>
+{% endblock %}

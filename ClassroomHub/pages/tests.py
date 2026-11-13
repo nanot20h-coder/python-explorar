@@ -303,4 +303,206 @@ class ResourceReviewPermissionTests(TestCase):
         response = self.client.get(reverse("pages:resources"))
         self.assertEqual(response.status_code, 200)
 
+    
+class ResourceCRUDTests(TestCase):
+
+    def setUp(self):
+        self.client = Client()
+        User = get_user_model()
+
+        self.category = Category.objects.create(
+            name="Programacion"
+        )
+
+        self.resource = Resource.objects.create(
+            title="Python basico",
+            description="Introduccion a Python.",
+            resource_type="Programming",
+            category=self.category,
+            available=True,
+        )
+
+        self.editor = User.objects.create_user(
+            username="crud_editor",
+            password="CrudPassword2026!",
+        )
+
+        content_type = ContentType.objects.get_for_model(Resource)
+
+        permissions = Permission.objects.filter(
+            content_type=content_type,
+            codename__in=[
+                "view_resource",
+                "add_resource",
+                "change_resource",
+                "delete_resource",
+            ],
+        )
+
+        editors, created = Group.objects.get_or_create(
+            name="Catalog editors"
+        )
+        editors.permissions.set(permissions)
+        self.editor.groups.add(editors)
+
+    def test_resource_detail_page_loads(self):
+        response = self.client.get(
+            reverse(
+                "pages:resource-detail",
+                args=[self.resource.pk],
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Python basico")
+
+    def test_create_resource_requires_login(self):
+        response = self.client.get(
+            reverse("pages:resource-create")
+        )
+        self.assertEqual(response.status_code, 302)
+
+    def test_editor_can_open_create_form(self):
+        self.client.login(
+            username="crud_editor",
+            password="CrudPassword2026!",
+        )
+        response = self.client.get(
+            reverse("pages:resource-create")
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_editor_can_create_resource(self):
+        self.client.login(
+            username="crud_editor",
+            password="CrudPassword2026!",
+        )
+        response = self.client.post(
+            reverse("pages:resource-create"),
+            {
+                "title": "Django avanzado",
+                "description": "Curso de Django.",
+                "resource_type": "Programming",
+                "category": self.category.pk,
+                "available": "on",
+            },
+        )
+        self.assertRedirects(
+            response,
+            reverse("pages:resources"),
+        )
+        self.assertTrue(
+            Resource.objects.filter(
+                title="Django avanzado"
+            ).exists()
+        )
+
+    def test_create_resource_rejects_short_title(self):
+        self.client.login(
+            username="crud_editor",
+            password="CrudPassword2026!",
+        )
+        response = self.client.post(
+            reverse("pages:resource-create"),
+            {
+                "title": "AB",
+                "description": "Descripcion.",
+                "resource_type": "Programming",
+                "category": self.category.pk,
+                "available": "on",
+            },
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertFalse(
+            Resource.objects.filter(title="AB").exists()
+        )
+
+    def test_editor_can_open_update_form(self):
+        self.client.login(
+            username="crud_editor",
+            password="CrudPassword2026!",
+        )
+        response = self.client.get(
+            reverse(
+                "pages:resource-update",
+                args=[self.resource.pk],
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_editor_can_update_resource(self):
+        self.client.login(
+            username="crud_editor",
+            password="CrudPassword2026!",
+        )
+        response = self.client.post(
+            reverse(
+                "pages:resource-update",
+                args=[self.resource.pk],
+            ),
+            {
+                "title": "Python actualizado",
+                "description": "Contenido actualizado.",
+                "resource_type": "Programming",
+                "category": self.category.pk,
+                "available": "on",
+            },
+        )
+        self.assertRedirects(
+            response,
+            reverse("pages:resources"),
+        )
+        self.resource.refresh_from_db()
+        self.assertEqual(
+            self.resource.title,
+            "Python actualizado",
+        )
+
+    def test_editor_can_open_delete_confirmation(self):
+        self.client.login(
+            username="crud_editor",
+            password="CrudPassword2026!",
+        )
+        response = self.client.get(
+            reverse(
+                "pages:resource-delete",
+                args=[self.resource.pk],
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+
+    def test_editor_can_delete_resource(self):
+        self.client.login(
+            username="crud_editor",
+            password="CrudPassword2026!",
+        )
+        response = self.client.post(
+            reverse(
+                "pages:resource-delete",
+                args=[self.resource.pk],
+            )
+        )
+        self.assertRedirects(
+            response,
+            reverse("pages:resources"),
+        )
+        self.assertFalse(
+            Resource.objects.filter(
+                pk=self.resource.pk
+            ).exists()
+        )
+
+    def test_regular_user_cannot_create_resource(self):
+        regular_user = get_user_model().objects.create_user(
+            username="regular_crud",
+            password="RegularPassword2026!",
+        )
+        self.client.login(
+            username="regular_crud",
+            password="RegularPassword2026!",
+        )
+        response = self.client.get(
+            reverse("pages:resource-create")
+        )
+        self.assertEqual(response.status_code, 403)
+
 

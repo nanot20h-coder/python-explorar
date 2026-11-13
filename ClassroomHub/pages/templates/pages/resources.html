@@ -1,3 +1,4 @@
+
 {% extends "pages/base.html" %}
 
 {% block title %}Resources | ClassroomHub{% endblock %}
@@ -5,6 +6,12 @@
 {% block content %}
     <h2>Learning resources</h2>
     <p>Browse the available learning materials.</p>
+
+    {% if perms.pages.add_resource %}
+        <p>
+            <a href="{% url 'pages:resource-create' %}">Add new resource</a>
+        </p>
+    {% endif %}
 
     {% for resource in resources %}
         <article class="resource">
@@ -21,6 +28,24 @@
             {% endif %}
 
             <small>Created: {{ resource.created_at|date:"d/m/Y" }}</small>
+
+            <p>
+                <a href="{% url 'pages:resource-detail' resource.pk %}">
+                    View details
+                </a>
+
+                {% if perms.pages.change_resource %}
+                    | <a href="{% url 'pages:resource-update' resource.pk %}">
+                        Edit
+                    </a>
+                {% endif %}
+
+                {% if perms.pages.delete_resource %}
+                    | <a href="{% url 'pages:resource-delete' resource.pk %}">
+                        Delete
+                    </a>
+                {% endif %}
+            </p>
         </article>
     {% empty %}
         <p>No resources are available.</p>

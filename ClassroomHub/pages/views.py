@@ -1,9 +1,18 @@
 
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import redirect, render
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.shortcuts import redirect, render, get_object_or_404
+from django.urls import reverse_lazy
+from django.views.generic import (
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 
 from .models import Resource
+from .forms import ResourceForm
 
 
 def home(request):
@@ -19,6 +28,10 @@ def resources(request):
     }
     return render(request, "pages/resources.html", context)
 
+class ResourceDetailView(DetailView):
+    model = Resource
+    template_name = "pages/resource_detail.html"
+    context_object_name = "resource"
 
 def about(request):
     context = {
@@ -61,3 +74,38 @@ def resource_review(request):
         "resources": Resource.objects.select_related("category").all(),
     }
     return render(request, "pages/review.html", context)
+
+
+class ResourceCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    CreateView,
+):
+    model = Resource
+    form_class = ResourceForm
+    template_name = "pages/resource_form.html"
+    permission_required = "pages.add_resource"
+    success_url = reverse_lazy("pages:resources")
+
+
+class ResourceUpdateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UpdateView,
+):
+    model = Resource
+    form_class = ResourceForm
+    template_name = "pages/resource_form.html"
+    permission_required = "pages.change_resource"
+    success_url = reverse_lazy("pages:resources")
+
+
+class ResourceDeleteView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    DeleteView,
+):
+    model = Resource
+    template_name = "pages/resource_confirm_delete.html"
+    permission_required = "pages.delete_resource"
+    success_url = reverse_lazy("pages:resources")
