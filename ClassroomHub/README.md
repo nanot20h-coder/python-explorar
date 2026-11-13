@@ -1,213 +1,148 @@
-# ClassroomHub
+ 
 
-## Descripción
+# Proyecto integrador: ClassroomHub
 
-ClassroomHub es una aplicación web desarrollada con Django como parte de los laboratorios de aprendizaje de Python. Permite consultar recursos educativos organizados por categorías y administrar su información mediante una base de datos MySQL.
+## Descripción general
 
-## Funcionalidades
+ClassroomHub es una aplicación web educativa desarrollada con Python y Django. Su objetivo es permitir la consulta y gestión de recursos de aprendizaje mediante una plataforma organizada, con autenticación de usuarios y control de permisos.
 
-- Página principal con un mensaje de bienvenida.
-- Catálogo público de recursos educativos.
-- Organización de recursos mediante categorías.
-- Visualización del título, descripción, categoría y disponibilidad de cada recurso.
-- Administración de categorías y recursos mediante Django Admin.
-- Persistencia de datos mediante MySQL.
-- Operaciones CRUD utilizando el ORM de Django.
-- Consultas mediante `all()`, `filter()`, `get()` y `select_related()`.
-- Acceso a recursos relacionados mediante `related_name`.
-- Protección de categorías con recursos asociados mediante `on_delete=models.PROTECT`.
-- Navegación entre páginas y respuesta 404 para rutas inexistentes.
-- Pruebas automatizadas para páginas, modelos y relaciones.
+Durante los laboratorios 6, 7, 8 y 9 se desarrolló progresivamente la aplicación, incorporando nuevas funcionalidades y mejorando su estructura.
+
+## Desarrollo de los laboratorios
+
+### Laboratorio 06: Introducción al desarrollo web con Django
+
+Se inició la construcción de ClassroomHub y se preparó el entorno de desarrollo.
+
+Actividades realizadas:
+- Creación y configuración del proyecto Django.
+- Organización de la estructura del proyecto.
+- Configuración del entorno virtual y las dependencias.
+- Creación de la aplicación `pages`.
+- Configuración de rutas y vistas.
+- Creación de plantillas HTML.
+- Desarrollo de las páginas principales: inicio, recursos y acerca de.
+
+### Laboratorio 07: Base de datos y modelos
+
+Se integró la base de datos MySQL para almacenar la información de los recursos educativos.
+
+Actividades realizadas:
+- Configuración de la conexión con MySQL.
+- Creación de los modelos `Category` y `Resource`.
+- Definición de campos y relaciones entre modelos.
+- Ejecución de migraciones.
+- Consulta de información mediante el ORM de Django.
+- Administración de registros mediante Django Admin.
+
+### Laboratorio 08: Autenticación y permisos
+
+Se implementó un sistema de autenticación para controlar el acceso de los usuarios a la plataforma.
+
+Actividades realizadas:
+- Registro de usuarios.
+- Inicio y cierre de sesión.
+- Protección de páginas mediante autenticación.
+- Implementación de sesiones y contador de visitas al panel.
+- Creación del grupo `Catalog reviewers`.
+- Asignación de permisos para consultar recursos.
+- Protección de la sección de revisión.
+
+### Laboratorio 09: Formularios y operaciones CRUD
+
+Se ampliaron las funcionalidades de ClassroomHub mediante formularios y vistas basadas en clases.
+
+Actividades realizadas:
+- Creación del formulario `ResourceForm` mediante `ModelForm`.
+- Validación de los datos ingresados.
+- Implementación de vistas basadas en clases.
+- Consulta de detalles de los recursos.
+- Creación de recursos.
+- Actualización de recursos existentes.
+- Eliminación de recursos con confirmación.
+- Implementación de permisos para crear, editar y eliminar.
+- Creación del grupo `Catalog editors`.
+- Desarrollo de pruebas automatizadas para comprobar las funcionalidades.
 
 ## Tecnologías utilizadas
 
-- Python 3.14.8
-- Django 6.1.3
-- MySQL 26.7
-- mysqlclient 2.3.1
-- python-dotenv 1.2.4
-- HTML
+- **Python:** lenguaje de programación principal.
+- **Django:** framework para el desarrollo web.
+- **MySQL:** sistema de gestión de bases de datos.
+- **HTML:** estructura de las páginas web.
+- **Git:** control de versiones.
+- **GitHub:** almacenamiento y seguimiento del código fuente.
 
-## Requisitos previos
+## Estructura general del proyecto
 
-- Python instalado.
-- MySQL Server instalado y en funcionamiento.
-- Git (opcional, para gestionar el repositorio).
+```text
+ClassroomHub/
+│
+├── config/
+│   ├── settings.py
+│   ├── urls.py
+│   └── ...
+│
+├── pages/
+│   ├── migrations/
+│   ├── templates/
+│   │   └── pages/
+│   ├── admin.py
+│   ├── forms.py
+│   ├── models.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
+├── manage.py
+├── requirements.txt
+└── .gitignore
+```
 
-## Instalación y configuración
+## Ejecución del proyecto
 
-### 1. Clonar o descargar el proyecto
-
-Clonar el repositorio o descargar el proyecto y ubicarse en la carpeta `ClassroomHub`.
-
-### 2. Crear y activar el entorno virtual
-
-En Windows:
+1. Clonar el repositorio.
+2. Ingresar a la carpeta `ClassroomHub`.
+3. Crear y activar el entorno virtual.
+4. Instalar las dependencias:
 
 ```bash
-py -m venv .venv
-.venv\Scripts\activate
+pip install -r requirements.txt
 ```
 
-### 3. Instalar las dependencias
+5. Configurar la conexión a MySQL.
+6. Ejecutar las migraciones:
 
 ```bash
-python -m pip install -r requirements.txt
-```
-
-### 4. Crear la base de datos MySQL
-
-Desde MySQL, ejecutar:
-
-```sql
-CREATE DATABASE classroom_hub
-CHARACTER SET utf8mb4
-COLLATE utf8mb4_unicode_ci;
-```
-
-Crear un usuario para la aplicación y asignarle permisos:
-
-```sql
-CREATE USER 'classroomhub_user'@'127.0.0.1'
-IDENTIFIED BY 'tu_contraseña_segura';
-
-GRANT ALL PRIVILEGES ON classroom_hub.*
-TO 'classroomhub_user'@'127.0.0.1';
-
-GRANT ALL PRIVILEGES ON test_classroom_hub.*
-TO 'classroomhub_user'@'127.0.0.1';
-
-FLUSH PRIVILEGES;
-```
-
-### 5. Configurar las variables de entorno
-
-Crear una copia de `.env.example` con el nombre `.env`:
-
-```bash
-copy .env.example .env
-```
-
-Configurar las siguientes variables dentro del archivo `.env`:
-
-```env
-DB_NAME=classroom_hub
-DB_USER=classroomhub_user
-DB_PASSWORD=tu_contraseña_segura
-DB_HOST=127.0.0.1
-DB_PORT=3306
-```
-
-Reemplazar `tu_contraseña_segura` por la contraseña configurada para el usuario de MySQL.
-
-**Importante:** El archivo `.env` contiene información privada y no debe subirse al repositorio. Se utiliza `.env.example` como plantilla de configuración.
-
-### 6. Ejecutar las migraciones
-
-```bash
-python manage.py makemigrations
 python manage.py migrate
 ```
 
-Las migraciones principales del proyecto son:
-
-- `0001_initial`: creación de los modelos Category y Resource.
-- `0002_resource_resource_type`: incorporación del campo `resource_type` al modelo Resource, conservando los registros existentes mediante un valor predeterminado.
-
-### 7. Crear un usuario administrador
-
-```bash
-python manage.py createsuperuser
-```
-
-Seguir las instrucciones para configurar el usuario y la contraseña.
-
-## Ejecutar el proyecto
-
-Comprobar la configuración:
-
-```bash
-python manage.py check
-```
-
-Iniciar el servidor:
+7. Iniciar el servidor:
 
 ```bash
 python manage.py runserver
 ```
 
-Abrir en el navegador:
+8. Abrir en el navegador:
 
+```text
 http://127.0.0.1:8000/
+```
 
-## Rutas principales
+## Pruebas automatizadas
 
-| Ruta | Descripción |
-|---|---|
-| `/` | Página principal |
-| `/resources/` | Catálogo de recursos educativos |
-| `/about/` | Información del proyecto |
-| `/admin/` | Panel de administración de Django |
-
-## Modelos de datos
-
-### Category
-
-Representa las categorías de los recursos educativos.
-
-- `name`: nombre de la categoría, único.
-- `description`: descripción de la categoría.
-
-### Resource
-
-Representa los recursos educativos disponibles.
-
-- `title`: título del recurso.
-- `resource_type`: tipo de recurso, con valor predeterminado `General`.
-- `description`: descripción del recurso.
-- `available`: indica si está disponible.
-- `category`: relación con el modelo Category mediante una clave foránea.
-- `created_at`: fecha de creación del recurso.
-
-### Relación entre modelos
-
-La relación entre Category y Resource es de uno a muchos: una categoría puede tener varios recursos y
-
-
-## Authentication and permissions
-
-ClassroomHub uses Django authentication to manage user registration, login and logout.
-
-### Available routes
-- `/accounts/signup/`: Create an account.
-- `/accounts/login/`: Log in.
-- `/accounts/logout/`: Log out.
-- `/dashboard/`: Private dashboard.
-- `/resources/`: Public resource catalog.
-- `/resources/review/`: Authorized resource review.
-
-### Groups and permissions
-The project includes the `Catalog reviewers` group with the `pages.view_resource` permission.
-
-Users in this group can access the review page without Django Admin privileges.
-
-### Session management
-The dashboard displays the authenticated user's username and counts visits during the current session.
-
-### Automated tests
-Run the following commands:
+Para ejecutar las pruebas de la aplicación:
 
 ```bash
-python manage.py check
-python manage.py makemigrations --check --dry-run
 python manage.py test pages
 ```
 
-The project includes 30 automated tests covering pages, models, authentication, sessions and permissions.
+**Resultado del laboratorio 09:** 40 pruebas ejecutadas correctamente, sin errores.
 
-### Security
-- Django manages password hashing.
-- Registration creates regular users.
-- Logout uses POST and CSRF protection.
-- Permissions are verified on the server.
-- Database credentials remain in `.env`.
+También se realizaron pruebas manuales para comprobar el funcionamiento de las operaciones de creación, consulta, edición y eliminación de recursos.
+
+## Conclusión
+
+El desarrollo de ClassroomHub permitió fortalecer los conocimientos en Python y Django, desde la configuración inicial de una aplicación web hasta la implementación de bases de datos, autenticación, permisos, formularios y operaciones CRUD.
+
+Cada laboratorio permitió incorporar nuevas funcionalidades y mejorar progresivamente la aplicación, aplicando buenas prácticas de desarrollo y control de versiones.
